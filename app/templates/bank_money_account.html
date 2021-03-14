@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Відкриття дебетової картки{% endblock %}
+
+{% block body %}
+<h1>Грошові ресурси банку</h1>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Валюта</th>
+      <th scope="col">Баланс</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for acc in accounts %}
+    <tr>
+        <td scope="col">{{ acc.currency }}</td>
+        <td scope="col">{{ acc.balance }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

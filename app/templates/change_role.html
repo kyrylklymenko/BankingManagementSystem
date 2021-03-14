@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Зміна ролі користувачів{% endblock %}
+
+{% block body %}
+<form method="POST" action="/user/{{ id }}/change_role">
+           <div class="container register-form">
+            <div class="form">
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                Поточна роль
+                                <h2>{{ role }}</h2>
+                            </div>
+                            <div class="form-group">
+                                Нова роль:
+                                <select class="form-control" id="exampleFormControlSelect1" name="role">
+                                    {% if role=='Клієнт' %}
+                                    <option value="2">Менеджер</option>
+                                    <option value="3">Адміністратор</option>
+                                    {% elif role=='Менеджер' %}
+                                    <option value="1">Клієнт</option>
+                                    <option value="3">Адміністратор</option>
+                                    {% elif role=='Адміністратор' %}
+                                    <option value="1">Клієнт</option>
+                                    <option value="2">Менеджер</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                            <input type="submit" class="button is-block is-info is-large is-fullwidth" value="Змінити"/>
+
+                        </div>
+
+                </div>
+            </div>
+        </div>
+           </div>
+    </form>
+{% endblock %}

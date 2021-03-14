@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Додати користувача {% endblock %}
+
+{% block body %}
+<h1>Реєстрація нового користувача</h1>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
+    <form method="POST" action="/add_user",
+    oninput='password_confirm.setCustomValidity(password.value != password_confirm.value ? "Passwords do not match." : "")'>
+        <div class="container register-form">
+            <div class="form">
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                Ім'я
+                                <input type="text" autocomplete="off" name="first_name" class="form-control" placeholder="Ім'я *" value="" required/>
+                            </div>
+                            <div class="form-group">
+                                Пароль
+                                <input type="password" autocomplete="off" name="password" class="form-control" placeholder="Пароль *" value=""/>
+                            </div>
+                            <div class="form-group">
+                                Пошта
+                                <input type="email" autocomplete="off" name="email" class="form-control" placeholder="Пошта *" value="" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            Прізвище
+                            <div class="form-group">
+                                <input type="text" autocomplete="off" name="last_name" class="form-control" placeholder="Прізвище *" value=""/>
+                            </div>
+                            <div class="form-group">
+                                Підтвердіть пароль
+                                <input type="password" autocomplete="off" name="password_confirm" class="form-control" placeholder="Підтвердіть пароль *" value=""/>
+                            </div>
+                            <div class="form-group">
+                                Виберіть роль
+                                <select class="form-control" id="exampleFormControlSelect1" name="role">
+                                    <option value="1">Клієнт</option>
+                                    <option value="2">Менеджер</option>
+                                    <option value="3">Адміністратор</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" class="button is-block is-info is-large is-fullwidth" value="Додати користувача"/>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

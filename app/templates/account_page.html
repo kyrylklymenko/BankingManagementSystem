@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block  title %}Особистий кабінет{% endblock %}
+
+{% block body %}
+
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col" colspan="2">Дані користувача</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ім'я</td>
+      <td>{{ current_user.first_name }}</td>
+    </tr>
+    <tr>
+      <td>Прізвище</td>
+      <td>{{ current_user.last_name }}</td>
+    </tr>
+    <tr>
+      <td>Пошта</td>
+      <td>{{ current_user.email }}</td>
+    </tr>
+  <tr>
+      <td>Статус</td>
+      <td>{% if role.name == 'Administrator' %}
+            Адміністратор
+          {% elif role.name == 'Client' %}
+            Клієнт
+          {% elif role.name == 'Manager' %}
+            Менеджер
+          {% else %}
+            Роль чомусь відсутня
+          {% endif %}
+      </td>
+    </tr>
+  </tbody>
+</table>
+    <a href="/change_password">Змінити пароль</a>
+<br><br>
+
+{% if role.name == 'Administrator' %}
+<a href="/manage_users" class="btn btn-secondary">Налаштування користувачів</a>
+<a href="/bank_account" class="btn btn-secondary">Грошові ресурси банку</a>
+{% elif role.name == 'Client' %}
+<a href="/manage_services" class="btn btn-secondary">Керування вашими депозитами та кредитними картами</a>
+{% elif role.name == 'Manager' %}
+<a href="/manage_orders" class="btn btn-secondary">Керування запитами</a>
+{% else %}
+no roles wtf
+{% endif %}
+{% endblock %}

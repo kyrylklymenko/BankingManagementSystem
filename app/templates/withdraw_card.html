@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Зняття грошей з дебетової картки{% endblock %}
+
+{% block body %}
+<form method="POST" action="/card/{{ card_id }}/withdraw">
+        <div class="container register-form">
+            <div class="form">
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                Введіть грошову суму, яку Ви бажаєте зняти з картки
+                                <input type="text" name="balance" class="form-control" placeholder="Сума *" value="0" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" class="button is-block is-info is-large is-fullwidth" value="Зняти"/>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+        <br>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
+{% endblock %}

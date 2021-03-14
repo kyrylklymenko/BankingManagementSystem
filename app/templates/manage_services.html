@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Послуги клієнтів{% endblock %}
+
+{% block body %}
+<h2>Депозити</h2>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Валюта</th>
+      <th scope="col">Баланс</th>
+      <th scope="col">Операція</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+
+
+        {% if deposits|length == 0 and not has_pending_deposit %}
+      <td scope="col" colspan="3">
+        <p>Ви не маєте жодного відкритого депозиту.<br><a href="/deposit/create">Бажаєте відкрити?</a></p>
+      </td>
+          {% elif deposits|length == 0 and has_pending_deposit %}
+      <td scope="col" colspan="3">
+      <p>Ваша заявка на відкриття депозитного рахунку ще оброблюється. Дякуємо за терпіння!</p>
+      </td>
+      {% elif deposits|length != 0 and has_active_deposit %}
+        <td scope="col">{{ deposits[0].currency }}</td>
+        <td scope="col">{{ deposits[0].balance }}</td>
+      <td scope="col"><a href="/deposit/delete" class="btn btn-secondary">Зняти рахунок</a></td>
+      {% else %}
+      <td scope="col", colspan="3">
+      <p>Ваша заявка на закриття депозитного рахунку ще оброблюється. Дякуємо за терпіння!</p>
+      </td>
+      {% endif %}
+      </td>
+
+
+
+    </tr>
+  </tbody>
+</table>
+
+<p>Отримані кошти з депозитів: {{ current_user.deposit_profit }} у.о.</p>
+
+<h2>Дебетові картки</h2>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Валюта</th>
+      <th scope="col">Баланс</th>
+      <th scope="col" colspan="3">Операція</th>
+    </tr>
+  </thead>
+  <tbody>
+
+      {% for card in cards %}
+      {% if card.pending_operation %}
+      <tr>
+      <td scope="col" colspan="5">
+      <p>Ваша заявка на закриття дебетової картки чи зміни балансу ще оброблюється. Дякуємо за терпіння!</p>
+      </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td scope="col">{{ card.currency }}</td>
+        <td scope="col">{{ card.balance }}</td>
+        <td scope="col"><a href="/card/{{ card.card_id }}/withdraw" class="btn btn-secondary">Зняти з карти</a></td>
+        <td scope="col"><a href="/card/{{ card.card_id }}/replenish" class="btn btn-secondary">Покласти на карту</a></td>
+        <td scope="col"><a href="/card/{{ card.card_id }}/delete" class="btn btn-secondary">Закрити карту</a></td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+
+
+    </tr>
+  </tbody>
+</table>
+<td scope="col"><a href="/card/create" class="btn btn-secondary">Додати карту</a></td>
+
+{% endblock %}

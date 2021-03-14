@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Логін користувача{% endblock %}
+
+{% block body %}
+<h1>Вхід до облікового запису системи</h1>
+    <form method="POST" action="/login">
+           <div class="container register-form">
+            <div class="form">
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                Пошта
+                                <input type="email" autocomplete="off" name="email" class="form-control" placeholder="Ваша пошта *" value="" required/>
+                            </div>
+                            <div class="form-group">
+                                Пароль
+                                <input type="password" name="password" class="form-control" placeholder="Пароль *" value=""/>
+                            </div>
+                            <input type="submit" class="button is-block is-info is-large is-fullwidth" value="Увійти"/>
+
+                        </div>
+
+                </div>
+            </div>
+        </div>
+           </div>
+    </form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+        <br>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
+
+
+{% endblock %}

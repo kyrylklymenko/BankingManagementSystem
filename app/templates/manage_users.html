@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block  title %}Керування користувачамим{% endblock %}
+
+{% block  body %}
+<h1>Адміністрування користувачів системи</h1>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Ім'я</th>
+      <th scope="col">Прізвище</th>
+      <th scope="col">Пошта</th>
+      <th score="col" colspan="2">Роль</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in all_users %}
+    <tr>
+      <td scope="col">{{ user.first_name }}</td>
+      <td scope="col">{{ user.last_name }}</td>
+      <td scope="col">{{ user.email }}</td>
+      <td score="col">{{ user.roles[0].name }}</td>
+      <td score="col">
+        <a href="/user/{{ user.id }}/change_role" class="btn btn-secondary">Змінити роль</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<br>
+<a href="/add_user" class="btn btn-secondary">Додати користувача</a>
+{% endblock %}

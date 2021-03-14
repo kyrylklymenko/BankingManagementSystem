@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Заявки послуг клієнтів{% endblock %}
+
+{% block body %}
+<h1>Операції</h1>
+<h2>Депозити</h2>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Клієнт</th>
+      <th scope="col">Валюта</th>
+      <th scope="col">Баланс</th>
+      <th scope="col">Статус</th>
+      <th scope="col" colspan="2">Операція</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for deposit_operation in deposit_operations %}
+    <tr>
+        <td scope="col">{{ deposit_operation.client_id }}</td>
+
+        <td scope="col">
+            {% if deposit_operation.currency==1 %}
+              USD
+            {% elif deposit_operation.currency==2 %}
+              EUR
+            {% else %}
+              UAH
+            {% endif %}
+        </td>
+        <td scope="col">{{ deposit_operation.balance }}</td>
+        <td scope="col">{% if deposit_operation.deposit_status==1 %}
+              Відкрити
+            {% elif deposit_operation.deposit_status==2 %}
+              Зняти з рахунку
+            {% endif %}
+        </td>
+        <td scope="col"><a href="/manage_orders/deposit/{{ deposit_operation.deposit_status }}/accept/{{ deposit_operation.operation_id }}" class="btn btn-secondary">Підтвердити</a></td>
+        <td scope="col"><a href="/manage_orders/deposit/{{ deposit_operation.deposit_status }}/reject/{{ deposit_operation.operation_id }}" class="btn btn-secondary">Відхилити</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<br>
+<h2>Дебетові картки</h2>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Клієнт</th>
+      <th scope="col">Картка</th>
+      <th scope="col">Валюта</th>
+      <th scope="col">Баланс</th>
+      <th scope="col">Статус</th>
+      <th scope="col" colspan="2">Операція</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for card_operation in card_operations %}
+    <tr>
+        <td scope="col">{{ card_operation.client_id }}</td>
+        <td scope="col">{{ card_operation.card_id if card_operation.card_id != None else ' ' }}</td>
+        <td scope="col">
+            {% if card_operation.currency==1 %}
+              USD
+            {% elif card_operation.currency==2 %}
+              EUR
+            {% else %}
+              UAH
+            {% endif %}
+        </td>
+        <td scope="col">{{ card_operation.balance_change }}</td>
+        <td scope="col">
+            {% if card_operation.card_status==1 %}
+              Відкрити
+            {% elif card_operation.card_status==2 %}
+              Закрити
+            {% elif card_operation.card_status==3 %}
+              Поповнити
+            {% elif card_operation.card_status==4 %}
+              Зняти з рахунку
+            {% endif %}
+        </td>
+        <td scope="col"><a href="/manage_orders/card/{{ card_operation.card_status }}/accept/{{ card_operation.operation_id }}" class="btn btn-secondary">Підтвердити</a></td>
+        <td scope="col"><a href="/manage_orders/card/{{ card_operation.card_status }}/reject/{{ card_operation.operation_id }}" class="btn btn-secondary">Відхилити</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

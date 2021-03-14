@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Відкриття депозиту{% endblock %}
+
+{% block body %}
+<form method="POST" action="/deposit/create">
+        <div class="container register-form">
+            <div class="form">
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                Баланс
+                                <input type="text" autocomplete="off" name="balance" class="form-control" placeholder="Баланс *" value="0" required/>
+                            </div>
+                            <div class="form-group">
+                                Валюта
+                                <select class="form-control" id="exampleFormControlSelect1" name="currency">
+                                    <option value="1">USD</option>
+                                    <option value="2">EUR</option>
+                                    <option value="3">UAH</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" class="button is-block is-info is-large is-fullwidth" value="Відкрити"/>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

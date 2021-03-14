@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block  title %}Курси валют{% endblock %}
+
+{% block  body %}
+<h1>Курси валют</h1>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Валюта</th>
+      <th scope="col">Баз. валюта</th>
+      <th scope="col">Купівля</th>
+      <th scope="col">Продаж</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for curr_pair in data %}
+    <tr>
+        <td scope="col">{{ curr_pair.ccy }}</td>
+        <td scope="col">{{ curr_pair.base_ccy }}</td>
+        <td scope="col">{{ curr_pair.buy }}</td>
+        <td scope="col">{{ curr_pair.sale }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

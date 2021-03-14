@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Покласти гроші на дебетову картку{% endblock %}
+
+{% block body %}
+<form method="POST" action="/card/{{ card_id }}/replenish">
+        <div class="container register-form">
+            <div class="form">
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                Введіть грошову суму, яку Ви бажаєте покласти на картку
+                                <input type="text" name="balance" class="form-control" placeholder="Сума *" value="0" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" class="button is-block is-info is-large is-fullwidth" value="Покласти"/>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
